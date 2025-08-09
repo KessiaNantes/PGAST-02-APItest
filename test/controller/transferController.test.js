@@ -22,8 +22,16 @@ describe('Tranfer Controller', () => {
       expect(resposta.status).to.equal(400);
       expect(resposta.body).to.have.property('error', 'Usuário remetente ou destinatário não encontrado');
     });
-    //it('Quado')
-  });
+    it('Quando informo os dados corretos recebo 201', async () => {
+      const resposta = await request(app)
+        .post('/tranfer')
+        .send({
+          from: "kessia",
+            to: "rafael",
+            amount: 50
+        });
+    });
+});
 
   describe('GET /transfers', () => {
 
