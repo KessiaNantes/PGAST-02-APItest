@@ -6,6 +6,9 @@ const { expect } = require('chai');
 // Aplicação 
 const app = require('../../app');
 
+// Mock
+const transferService = require('../../service/transferService');
+
 // Testes
 describe('Tranfer Controller', () => {
   describe('POST /transfer', () => {
@@ -22,6 +25,7 @@ describe('Tranfer Controller', () => {
       expect(resposta.status).to.equal(400);
       expect(resposta.body).to.have.property('error', 'Usuário remetente ou destinatário não encontrado');
     });
+  
     it('Quando informo os dados corretos recebo 201', async () => {
       const resposta = await request(app)
         .post('/tranfer')
@@ -30,6 +34,26 @@ describe('Tranfer Controller', () => {
             to: "rafael",
             amount: 50
         });
+    });
+
+    it('Usando Mocks: Quando informo remetente e destinatario inexistentes recebo 400', async () => {
+        // Mocar apenas a função transfer do Service
+        const transferServiceMock = sinon.stub(transferService, 'transfer');
+        transferServiceMock.throws(new Error('Usuário remetente ou destinatário não encontrado'))
+
+      const resposta = await request(app)
+          .post('/transfer')
+          .send({
+            from: "silva",
+            to: "kessia",
+            amount: 100
+          });
+
+      expect(resposta.status).to.equal(400);
+      expect(resposta.body).to.have.property('error', 'Usuário remetente ou destinatário não encontrado');
+    
+          // Reseto o Mock
+          sinon.restore();
     });
   });
 
