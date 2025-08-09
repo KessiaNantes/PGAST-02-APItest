@@ -14,7 +14,7 @@ describe('Tranfer Controller', () => {
       const resposta = await request(app)
           .post('/transfer')
           .send({
-            from: "rafael",
+            from: "silva",
             to: "kessia",
             amount: 100
           });
