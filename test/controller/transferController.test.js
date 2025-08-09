@@ -31,7 +31,7 @@ describe('Tranfer Controller', () => {
             amount: 50
         });
     });
-});
+  });
 
   describe('GET /transfers', () => {
 
