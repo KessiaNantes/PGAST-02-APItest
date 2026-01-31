@@ -1,6 +1,10 @@
 {
   "scripts": {
-    "test": "mocha test/**/*.test.js --timeout 10000"
+    "test": "mocha test/**/*.test.js --timeout 10000",
+    "k6:smoke": "k6 run test/k6/tests/smoke.test.js",
+    "k6:load": "k6 run test/k6/tests/load.test.js",
+    "k6:stress": "k6 run test/k6/tests/stress.test.js",
+    "k6:all": "npm run k6:smoke && npm run k6:load && npm run k6:stress"
   },
   "dependencies": {
     "express": "^5.1.0",
@@ -10,6 +14,8 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "chai": "^4.5.0"
+    "chai": "^4.5.0",
+    "@faker-js/faker": "^8.0.2",
+    "k6-html-reporter": "^1.0.5"
   }
 }
